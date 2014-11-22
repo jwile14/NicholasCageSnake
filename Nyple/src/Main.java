@@ -19,7 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		
-		frame.setTitle("Nyple");	
+		frame.setTitle("Nyple - 2.0");	
 		frame.setSize(new Dimension(600,600));
 		
 		JPanel panel = new JPanel();
