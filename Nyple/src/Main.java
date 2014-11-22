@@ -21,7 +21,7 @@ public class Main {
 		frame.setTitle("Nyple - 2.0");	
 		frame.setSize(new Dimension(600,600));
 		
-		//Comment
+		//Comment hi and bye
 		System.out.println("Justin".length());
 		int a = 0;
 		char character = 54;
