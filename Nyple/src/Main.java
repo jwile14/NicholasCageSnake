@@ -22,6 +22,8 @@ public class Main {
 		frame.setTitle("Nyple - 2.0");	
 		frame.setSize(new Dimension(600,600));
 		
+		//Comment
+		
 		JPanel panel = new JPanel();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
