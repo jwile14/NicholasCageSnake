@@ -16,12 +16,13 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		JFrame frame = new JFrame();
+		LevelFrame frame = new LevelFrame();
 		
 		frame.setTitle("Nyple - 2.0");	
 		frame.setSize(new Dimension(600,600));
 		
-		frame.add(new LevelFrame());
+
+		frame.pack();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
