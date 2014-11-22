@@ -1,7 +1,7 @@
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 /**
  * Main class
@@ -21,9 +21,9 @@ public class Main {
 		frame.setTitle("Nyple - 2.0");	
 		frame.setSize(new Dimension(600,600));
 		
-		//JPanel panel = new JPanel();
+		frame.add(new LevelFrame());
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-	}
+	}	
 }
