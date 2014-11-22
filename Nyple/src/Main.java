@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * TODO Put here a description of what this class does.
@@ -19,6 +21,8 @@ public class Main {
 		
 		frame.setTitle("Nyple");	
 		frame.setSize(new Dimension(600,600));
+		
+		JPanel panel = new JPanel();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
