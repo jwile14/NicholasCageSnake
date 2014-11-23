@@ -145,7 +145,7 @@ public class LevelComponent extends JComponent {
 					
 					//Cage collision with Guards logic
 					for(int a = 3; a < curSprites.size()-2; ++a) {
-						if(Math.abs(curSprites.get(a).getX() - curSprites.get(0).getX()) < 45 && Math.abs(curSprites.get(a).getY() - curSprites.get(0).getY()) < 45)
+						if(Math.abs(curSprites.get(a).getX() - curSprites.get(0).getX()) < 40 && Math.abs(curSprites.get(a).getY() - curSprites.get(0).getY()) < 45)
 							gameState = false;
 					}
 
@@ -167,6 +167,5 @@ public class LevelComponent extends JComponent {
 	
 	public void incrementPoints() {
 		this.points += 100;
-		System.out.println("UPDATED");
 	}
 }
