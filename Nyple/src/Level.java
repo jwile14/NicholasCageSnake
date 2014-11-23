@@ -30,10 +30,17 @@ public class Level {
 				if (s.getClass().toString().equals("class Guard")
 						&& ((Guard) s).getSpawnStatus()) {
 					((Guard) s).incrementSpawnWait();
+				} else if(s.getClass().toString().equals("class DeclarationOfIndependence")){
+					if(((DeclarationOfIndependence) s).getFlipper())
+						g2d.drawImage(s.getImage(), s.getX(), s.getY(),
+							this.CELL_WIDTH, this.CELL_WIDTH, null);
+					else
+						g2d.drawImage(s.getImage(), s.getX() + this.CELL_WIDTH, s.getY(),
+								-this.CELL_WIDTH, this.CELL_WIDTH, null);
+
 				} else {
 					g2d.drawImage(s.getImage(), s.getX(), s.getY(),
 							this.CELL_WIDTH, this.CELL_WIDTH, null);
-
 				}
 			}
 		}

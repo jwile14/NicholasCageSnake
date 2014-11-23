@@ -146,13 +146,15 @@ public class LevelFrame extends JFrame {
 					} catch (InterruptedException e) {
 						throw new RuntimeException("Error while updating score");
 					}
-
 					LevelFrame.this.updateScore();
 				}
 
 			}
 
 		};
+		
+		Thread scoreUpdate = new Thread(scoreUpdater);
+		scoreUpdate.start();
 	}
 
 	public void updateScore() {
