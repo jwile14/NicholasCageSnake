@@ -18,6 +18,11 @@ public class Sprite {
 		this.yPosition = y;
 	}
 	
+	public boolean canMove(){
+		//if(this.xPosition )
+		return true;
+	}
+	
 	public boolean isAlive() {
 		return this.isAlive;
 	}
