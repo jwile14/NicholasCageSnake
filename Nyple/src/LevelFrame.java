@@ -1,12 +1,9 @@
-import java.awt.CardLayout;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class LevelFrame extends JFrame {
@@ -29,7 +26,8 @@ public class LevelFrame extends JFrame {
 		level = new Level(myPicture);
 
 		LevelComponent levelComponent = new LevelComponent(this.level);
-
+		levelComponent.startComponent();
+		
 		this.add(levelComponent);
 
 		this.setResizable(false);
