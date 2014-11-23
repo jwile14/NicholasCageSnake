@@ -27,8 +27,8 @@ public class Level {
 		
 		for(Sprite s : this.sprites) {
 			System.out.println("SWAG");
-			g2d.drawImage(s.getImage(), s.getX() * this.CELL_WIDTH/2, s.getY()
-					* this.CELL_WIDTH/2, this.CELL_WIDTH/2, this.CELL_WIDTH/2,
+			g2d.drawImage(s.getImage(), s.getX() * this.CELL_WIDTH, s.getY()
+					* this.CELL_WIDTH, this.CELL_WIDTH, this.CELL_WIDTH,
 					null);
 		}
 	}
