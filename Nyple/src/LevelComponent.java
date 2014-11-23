@@ -14,7 +14,7 @@ public class LevelComponent extends JComponent {
 	public LevelComponent(Level curLevel) {
 		this.curLevel = curLevel;
 		this.nick = this.curLevel.getCage();
-		
+
 		this.gkl = new GameKeyListener(this.nick, this);
 		this.addKeyListener(gkl);
 		this.setFocusable(true);
@@ -37,7 +37,7 @@ public class LevelComponent extends JComponent {
 	}
 
 	public void startComponent() {
-		
+
 		Runnable animatorRunnable = new Runnable() {
 
 			@Override
@@ -52,11 +52,13 @@ public class LevelComponent extends JComponent {
 						.getSprites();
 
 				curSprites.add(new DeclarationOfIndependence((int) (Math
-						.random() * 600.0), (int) (Math.random() * 600.0)));
+						.random() * 540.0), (int) (Math.random() * 540.0)));
 				System.out.println(curSprites.get(1).getX() + " "
 						+ curSprites.get(1).getY());
 
-				while (true) {
+				boolean gameState = true;
+
+				while (gameState) {
 					try {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
@@ -64,7 +66,14 @@ public class LevelComponent extends JComponent {
 					}
 
 					for (Sprite s : curSprites) {
-						if (s.getClass().toString().equals("class Cage")) {
+						if (s.getClass().toString().equals("class Guard")) {
+							((Guard) s).increment();
+							if (((Guard) s).getAliveTime() >= ((Guard) s)
+									.getTimer()) {
+								s.setIsAlive(false);
+							}
+						} else if (s.getClass().toString().equals("class Cage")) {
+
 							if (s.getX() < 535 && s.getX() > 0
 									&& s.getY() < 515 && s.getY() > 0) {
 								if (s.getDirection() == 0) {
@@ -100,23 +109,15 @@ public class LevelComponent extends JComponent {
 									spawnTimer = 0;
 								}
 							} else {
-								System.out.println("YOU LOSE!");
-							}
-						} else if (s.getClass().toString()
-								.equals("class Guard")) {
-
-							((Guard) s).increment();
-							if (((Guard) s).getAliveTime() >= ((Guard) s)
-									.getTimer()) {
-								s.setIsAlive(false);
+								gameState = false;
 							}
 						} else if (s.getClass().toString()
 								.equals("class DeclarationOfIndependence")) {
 							if (Math.abs(curSprites.get(0).getX() - s.getX()) < 60
 									&& Math.abs(curSprites.get(0).getY()
 											- s.getY()) < 60) {
-								s.setX((int) (Math.random() * 600.0));
-								s.setY((int) (Math.random() * 600.0));
+								s.setX((int) (Math.random() * 540.0));
+								s.setY((int) (Math.random() * 540.0));
 
 								System.out.println("SWAG");
 								lifeLength += 25;
