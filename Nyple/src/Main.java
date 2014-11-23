@@ -34,7 +34,7 @@ public class Main {
 		DataLine.Info info;
 		Clip clip;
 
-		stream = AudioSystem.getAudioInputStream(new File("The Nic Cage Song Video.mp3"));
+		stream = AudioSystem.getAudioInputStream(new File("The_Nic_Cage_Song_Video.wav"));
 		format = stream.getFormat();
 		info = new DataLine.Info(Clip.class, format);
 		clip = (Clip) AudioSystem.getLine(info);

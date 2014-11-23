@@ -20,9 +20,9 @@ public class Guard extends Sprite{
 		
 		
 		try {
-			this.images[0] = ImageIO.read(new File("niccage1close.png"));
-			this.images[1] = ImageIO.read(new File("niccage2.png"));
-			this.images[2] = ImageIO.read(new File("niccage3.png"));
+			this.images[0] = ImageIO.read(new File("Guard1.png"));
+			this.images[1] = ImageIO.read(new File("Guard2.png"));
+			this.images[2] = ImageIO.read(new File("Guard3.png"));
 			this.setImage(this.images[(int)(Math.random()*2.99)]);
 		} catch (IOException e) {
 			throw new RuntimeException("Error reading Guard image");
