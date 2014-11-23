@@ -35,9 +35,10 @@ public class LevelFrame extends JFrame {
 
 		this.mainPanel = new JPanel(new CardLayout());
 		this.titleScreen = new JPanel();
-		
+
 		try {
-			BufferedImage myPicture2 = ImageIO.read(new File("TITLE w name.jpg"));
+			BufferedImage myPicture2 = ImageIO
+					.read(new File("TITLE w name.jpg"));
 			JLabel picLabel = new JLabel(new ImageIcon(myPicture2));
 			this.titleScreen.add(picLabel);
 		} catch (Exception e) {
@@ -122,7 +123,6 @@ public class LevelFrame extends JFrame {
 		// **************************************************************************************************
 
 		this.titlePanel = new JPanel();
-		
 
 		this.titlePanel.add(this.startButton, BorderLayout.SOUTH);
 		this.titlePanel.add(this.titleScreen, BorderLayout.CENTER);
@@ -163,7 +163,7 @@ public class LevelFrame extends JFrame {
 			}
 
 		};
-		
+
 		Thread scoreUpdate = new Thread(scoreUpdater);
 		scoreUpdate.start();
 	}

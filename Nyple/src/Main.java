@@ -10,8 +10,7 @@ import javax.sound.sampled.FloatControl;
 /**
  * Main class
  *
- * @author wilejd.
- *         Created Nov 22, 2014.
+ * @author wilejd. Created Nov 22, 2014.
  */
 public class Main {
 	/**
@@ -26,7 +25,8 @@ public class Main {
 		} catch (Exception e) {
 			throw new RuntimeException("Error starting music");
 		}
-	}	
+	}
+
 	// Starts the music
 	private static void startMusic() throws Exception {
 		AudioInputStream stream;
@@ -34,7 +34,8 @@ public class Main {
 		DataLine.Info info;
 		Clip clip;
 
-		stream = AudioSystem.getAudioInputStream(new File("The_Nic_Cage_Song_Video.wav"));
+		stream = AudioSystem.getAudioInputStream(new File(
+				"The_Nic_Cage_Song_Video.wav"));
 		format = stream.getFormat();
 		info = new DataLine.Info(Clip.class, format);
 		clip = (Clip) AudioSystem.getLine(info);

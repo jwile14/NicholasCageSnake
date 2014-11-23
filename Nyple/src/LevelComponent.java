@@ -1,7 +1,11 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
@@ -9,7 +13,7 @@ public class LevelComponent extends JComponent {
 	private GameKeyListener gkl;
 	private Cage nick;
 	private int points = 0;
-	
+	private boolean gameState = true;
 	private Level curLevel;
 
 	public LevelComponent(Level curLevel) {
@@ -26,7 +30,12 @@ public class LevelComponent extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 
-		this.curLevel.drawLevel(g2d);
+		if (this.gameState) {
+			this.curLevel.drawLevel(g2d);
+		} else {
+			this.curLevel.endLevel(g2d);
+
+		}
 	}
 
 	public void setLevel(Level level) {
@@ -57,9 +66,7 @@ public class LevelComponent extends JComponent {
 				System.out.println(curSprites.get(1).getX() + " "
 						+ curSprites.get(1).getY());
 
-				boolean gameState = true;
-
-				while (gameState) {
+				while (true) {
 					try {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
@@ -147,30 +154,35 @@ public class LevelComponent extends JComponent {
 							j -= 1;
 						}
 					}
-					
-					//Cage collision with Guards logic
-					for(int a = 3; a < curSprites.size()-2; ++a) {
-						if(Math.abs(curSprites.get(a).getX() - curSprites.get(0).getX()) < 40 && Math.abs(curSprites.get(a).getY() - curSprites.get(0).getY()) < 45)
-							gameState = false;
+
+					// Cage collision with Guards logic
+					for (int a = 3; a < curSprites.size() - 2; ++a) {
+						if (Math.abs(curSprites.get(a).getX()
+								- curSprites.get(0).getX()) < 40
+								&& Math.abs(curSprites.get(a).getY()
+										- curSprites.get(0).getY()) < 45)
+							LevelComponent.this.gameState = false;
 					}
 
 					repaint();
 				}
-			}
-			
-			//Add Lose screen
 
+			}
 		};
 
 		Thread thread = new Thread(animatorRunnable);
 		thread.start();
 	}
-	
+
 	public int getPoints() {
 		return this.points;
 	}
-	
+
 	public void incrementPoints() {
 		this.points += 100;
+	}
+
+	public boolean getGameState() {
+		return this.gameState;
 	}
 }

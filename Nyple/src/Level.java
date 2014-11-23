@@ -1,6 +1,9 @@
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Level {
 	final private int CELL_WIDTH = 60;
@@ -13,7 +16,19 @@ public class Level {
 	public Level(BufferedImage myPicture) {
 		this.myPicture = myPicture;
 		this.sprites = new ArrayList<Sprite>();
+
 		setup();
+	}
+
+	public void endLevel(Graphics2D g2d) {
+		BufferedImage lostScreen = null;
+		try {
+			lostScreen = ImageIO.read(new File("sadnic.png"));
+		} catch (Exception e) {
+			throw new RuntimeException("Error reading in lost screen");
+		}
+
+		g2d.drawImage(lostScreen, 0, 0, 600, 600, null);
 	}
 
 	public void drawLevel(Graphics2D g2d) {
@@ -30,13 +45,15 @@ public class Level {
 				if (s.getClass().toString().equals("class Guard")
 						&& ((Guard) s).getSpawnStatus()) {
 					((Guard) s).incrementSpawnWait();
-				} else if(s.getClass().toString().equals("class DeclarationOfIndependence")){
-					if(((DeclarationOfIndependence) s).getFlipper())
+				} else if (s.getClass().toString()
+						.equals("class DeclarationOfIndependence")) {
+					if (((DeclarationOfIndependence) s).getFlipper())
 						g2d.drawImage(s.getImage(), s.getX(), s.getY(),
-							this.CELL_WIDTH, this.CELL_WIDTH, null);
+								this.CELL_WIDTH, this.CELL_WIDTH, null);
 					else
-						g2d.drawImage(s.getImage(), s.getX() + this.CELL_WIDTH, s.getY(),
-								-this.CELL_WIDTH, this.CELL_WIDTH, null);
+						g2d.drawImage(s.getImage(), s.getX() + this.CELL_WIDTH,
+								s.getY(), -this.CELL_WIDTH, this.CELL_WIDTH,
+								null);
 
 				} else {
 					g2d.drawImage(s.getImage(), s.getX(), s.getY(),
