@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 public class Sprite {
 	private int xPosition;
 	private int yPosition;
+	private int direction;
 	private BufferedImage img;
 	
 	private boolean isAlive;
@@ -10,12 +11,18 @@ public class Sprite {
 	public Sprite(int xPos, int yPos){
 		this.xPosition = xPos;
 		this.yPosition = yPos;
+		//0 degrees equals right
+		this.direction = 0;
 		this.isAlive = true;
 	}
 	
 	public void move(int x, int y){
+		System.out.println(xPosition);
+		System.out.println(yPosition);
 		this.xPosition = x;
 		this.yPosition = y;
+		System.out.println("New: " + xPosition);
+		System.out.println("New: " + yPosition);
 	}
 	
 	public boolean canMove(){
@@ -25,6 +32,14 @@ public class Sprite {
 	
 	public boolean isAlive() {
 		return this.isAlive;
+	}
+	
+	public void setDirection(int d){
+		this.direction = d;
+	}
+	
+	public int getDirection(){
+		return this.direction;
 	}
 
 	/**

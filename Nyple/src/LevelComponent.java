@@ -6,11 +6,17 @@ import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
 public class LevelComponent extends JComponent{
-	
+	private GameKeyListener gkl;
+	private Cage nick;
 	private Level curLevel;
 	
 	public LevelComponent(Level curLevel) {
 		this.curLevel = curLevel;
+		this.setFocusable(true);
+		this.nick = this.curLevel.getCage();
+		this.gkl = new GameKeyListener(this.nick, this);
+		this.addKeyListener(gkl);
+		this.setFocusable(true);
 	}
 	
 	@Override
@@ -18,7 +24,7 @@ public class LevelComponent extends JComponent{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		
-		this.curLevel.drawLevel(g2d, this);
+		this.curLevel.drawLevel(g2d);
 	}
 	
 	public void setLevel(Level level) {
