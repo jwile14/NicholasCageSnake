@@ -5,19 +5,31 @@ import java.awt.event.KeyListener;
 public class GameKeyListener implements KeyListener{
 
 	private Cage nick;
+	private LevelComponent lc;
+	
+	public GameKeyListener(Cage n, LevelComponent lc){
+		this.nick = n;
+		this.lc = lc;
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		if (arg0.getKeyCode() == KeyEvent.VK_UP){
-			nick.move(this.nick.getX(), this.nick.getY()-1);
+			nick.setDirection(90);
+			
+			lc.repaint();
 		}else if (arg0.getKeyCode() == KeyEvent.VK_DOWN){
-			nick.move(this.nick.getX(), this.nick.getY()+1);
+			nick.setDirection(270);
+			lc.repaint();
 		}else if (arg0.getKeyCode() == KeyEvent.VK_LEFT){
-			nick.move(this.nick.getX()-1, this.nick.getY());
+			nick.setDirection(180);
+			lc.repaint();
 		}else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT){
-			nick.move(this.nick.getX()+1, this.nick.getY()-1);
+			nick.setDirection(0);
+			lc.repaint();
 		}
+		System.out.println("Direction: "+this.nick.getDirection());
 	}
 
 	@Override
