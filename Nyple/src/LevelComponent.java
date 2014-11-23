@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 public class LevelComponent extends JComponent {
 	private GameKeyListener gkl;
 	private Cage nick;
+
 	private Level curLevel;
 
 	public LevelComponent(Level curLevel) {
@@ -45,6 +46,15 @@ public class LevelComponent extends JComponent {
 				int spawnTimer = 0;
 				boolean spawnFlag = false;
 				int spawnX = 0, spawnY = 0;
+				int lifeLength = 0;
+
+				ArrayList<Sprite> curSprites = LevelComponent.this.curLevel
+						.getSprites();
+
+				curSprites.add(new DeclarationOfIndependence((int) (Math
+						.random() * 600.0), (int) (Math.random() * 600.0)));
+				System.out.println(curSprites.get(1).getX() + " "
+						+ curSprites.get(1).getY());
 
 				while (true) {
 					try {
@@ -52,9 +62,6 @@ public class LevelComponent extends JComponent {
 					} catch (InterruptedException e) {
 						throw new RuntimeException("Error sleeping");
 					}
-
-					ArrayList<Sprite> curSprites = LevelComponent.this.curLevel
-							.getSprites();
 
 					for (Sprite s : curSprites) {
 						if (s.getClass().toString().equals("class Cage")) {
@@ -78,17 +85,17 @@ public class LevelComponent extends JComponent {
 								if (spawnTimer == 5) {
 									spawnFlag = true;
 									if (s.getDirection() == 0) {
-										spawnX = s.getX()-50;
+										spawnX = s.getX() - 50;
 										spawnY = s.getY();
 									} else if (s.getDirection() == 90) {
 										spawnX = s.getX();
-										spawnY = s.getY()+50;
+										spawnY = s.getY() + 50;
 									} else if (s.getDirection() == 180) {
-										spawnX = s.getX()+50;
+										spawnX = s.getX() + 50;
 										spawnY = s.getY();
 									} else if (s.getDirection() == 270) {
 										spawnX = s.getX();
-										spawnY = s.getY()-50;
+										spawnY = s.getY() - 50;
 									}
 									spawnTimer = 0;
 								}
@@ -98,20 +105,34 @@ public class LevelComponent extends JComponent {
 						} else if (s.getClass().toString()
 								.equals("class Guard")) {
 
-
 							((Guard) s).increment();
-							if (((Guard) s).getAliveTime() == ((Guard) s)
+							if (((Guard) s).getAliveTime() >= ((Guard) s)
 									.getTimer()) {
 								s.setIsAlive(false);
+							}
+						} else if (s.getClass().toString()
+								.equals("class DeclarationOfIndependence")) {
+							if (Math.abs(curSprites.get(0).getX() - s.getX()) < 60
+									&& Math.abs(curSprites.get(0).getY()
+											- s.getY()) < 60) {
+								s.setX((int) (Math.random() * 600.0));
+								s.setY((int) (Math.random() * 600.0));
+
+								System.out.println("SWAG");
+								lifeLength += 25;
 							}
 						}
 					}
 
 					if (spawnFlag) {
-						curSprites.add(new Guard(spawnX, spawnY));
-						curSprites.get(curSprites.size() - 1).setDirection(
-								curSprites.get(0).getDirection());
-						spawnFlag = false;
+						if (lifeLength > 0) {
+							curSprites.add(new Guard(spawnX, spawnY));
+							curSprites.get(curSprites.size() - 1).setDirection(
+									curSprites.get(0).getDirection());
+							((Guard) curSprites.get(curSprites.size() - 1))
+									.setAliveTime(lifeLength);
+							spawnFlag = false;
+						}
 					}
 
 					for (int j = 0; j < curSprites.size(); ++j) {

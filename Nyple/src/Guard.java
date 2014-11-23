@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Guard extends Sprite{
 	
-	private int spawnTimer = 100;
+	private int spawnTimer = 0;
 	private int aliveTime = 0;
 	
 	public Guard(int xPos, int yPos){
@@ -31,6 +31,6 @@ public class Guard extends Sprite{
 	}
 	
 	public void setAliveTime(int newTime) {
-		this.aliveTime = newTime;
+		this.spawnTimer = newTime;
 	}
 }
