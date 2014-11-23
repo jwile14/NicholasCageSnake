@@ -36,17 +36,17 @@ public class LevelComponent extends JComponent {
 	}
 
 	public void startComponent() {
-		
+
 		Runnable animatorRunnable = new Runnable() {
-			
+
 			@Override
 			public void run() {
 
 				int timer = 0;
-				
+
 				while (true) {
 					try {
-						Thread.sleep(50);
+						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						throw new RuntimeException("Error sleeping");
 					}
@@ -54,32 +54,37 @@ public class LevelComponent extends JComponent {
 					ArrayList<Sprite> curSprites = LevelComponent.this.curLevel
 							.getSprites();
 
-					for(Sprite s: curSprites) {
-						if(s.getClass().toString().equals("class Cage")) {
-							if(s.getDirection() == 0) {
-								s.setX(s.getX()+5);
-							} else if(s.getDirection() == 90) {
-								s.setY(s.getY()-5);
-							}else if(s.getDirection() == 180) {
-								s.setX(s.getX()-5);
-							}else if(s.getDirection() == 270) {
-								s.setY(s.getY()+5);
+					for (Sprite s : curSprites) {
+						if (s.getClass().toString().equals("class Cage")) {
+							if (s.getX() < 535 && s.getX() > 0
+									&& s.getY() < 515 && s.getY() > 0) {
+								if (s.getDirection() == 0) {
+									s.setX(s.getX() + 3);
+								} else if (s.getDirection() == 90) {
+									s.setY(s.getY() - 3);
+								} else if (s.getDirection() == 180) {
+									s.setX(s.getX() - 3);
+								} else if (s.getDirection() == 270) {
+									s.setY(s.getY() + 3);
+								}
+								timer++;
+								if (timer == 5) {
+									timer = 0;
+									((Cage) s).animate();
+								}
 							}
-							timer++;
-							if(timer == 5)
-							{
-								timer = 0;
-								((Cage) s).animate();
+							else {
+								System.out.println("YOU LOSE!");
 							}
 						}
 					}
-					
+
 					repaint();
 				}
 			}
 
 		};
-		
+
 		Thread thread = new Thread(animatorRunnable);
 		thread.start();
 	}
