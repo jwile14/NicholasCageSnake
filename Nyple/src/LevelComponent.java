@@ -28,4 +28,30 @@ public class LevelComponent extends JComponent{
 	public Level getLevel() {
 		return this.curLevel;
 	}
+	
+	/*public void startComponent() {
+		Runnable animatorRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+
+				while (true) {
+					try {
+						Thread.sleep(450);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					if (!isPaused) {
+						ArrayList<Sprite> curSprites = LevelComponent.this.curLevel.getSprites();
+						
+						
+
+						}
+						repaint();
+					}
+				}
+			}
+		};*/
+
 }

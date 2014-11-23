@@ -1,8 +1,3 @@
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-
-
 /**
  * Main class
  *
@@ -17,5 +12,6 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		LevelFrame frame = new LevelFrame();
+		
 	}	
 }
