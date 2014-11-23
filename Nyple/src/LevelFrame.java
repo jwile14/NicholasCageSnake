@@ -8,29 +8,30 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
+@SuppressWarnings("serial")
 public class LevelFrame extends JFrame {
 	private Level level;
-	
+
 	public LevelFrame() {
-		this.setSize(1000,1000);
+
+
+		this.setSize(600, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Nicolas Cage - Snake");
-		
-		JPanel mainPanel = new JPanel(new CardLayout());
-		
+
+		BufferedImage myPicture = null;
 		try {
-			BufferedImage myPicture = ImageIO.read(new File("TileFloor.jpg"));
-			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-			//mainPanel.add(picLabel);
+			myPicture = ImageIO.read(new File("TileFloor.jpg"));
 		} catch (Exception e) {
 			throw new RuntimeException("Error loading image");
 		}
 		
+		level = new Level(myPicture);
+
 		LevelComponent levelComponent = new LevelComponent(this.level);
-		
+
 		this.add(levelComponent);
-		
+
 		this.setResizable(false);
 		this.setVisible(true);
 	}

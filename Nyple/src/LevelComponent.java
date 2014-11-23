@@ -18,7 +18,6 @@ public class LevelComponent extends JComponent{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		
-		System.out.println("SWAG");
 		this.curLevel.drawLevel(g2d, this);
 	}
 	
