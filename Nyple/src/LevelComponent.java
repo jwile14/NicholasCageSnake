@@ -12,8 +12,8 @@ public class LevelComponent extends JComponent {
 
 	public LevelComponent(Level curLevel) {
 		this.curLevel = curLevel;
-		this.setFocusable(true);
 		this.nick = this.curLevel.getCage();
+		
 		this.gkl = new GameKeyListener(this.nick, this);
 		this.addKeyListener(gkl);
 		this.setFocusable(true);
@@ -36,12 +36,11 @@ public class LevelComponent extends JComponent {
 	}
 
 	public void startComponent() {
-
+		
 		Runnable animatorRunnable = new Runnable() {
 
 			@Override
 			public void run() {
-
 				int timer = 0;
 				int spawnTimer = 0;
 				boolean spawnFlag = false;

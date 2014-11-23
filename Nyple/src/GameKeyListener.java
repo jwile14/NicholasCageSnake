@@ -10,13 +10,16 @@ public class GameKeyListener implements KeyListener{
 	public GameKeyListener(Cage n, LevelComponent lc){
 		this.nick = n;
 		this.lc = lc;
+		System.out.println("KeyListener");
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		System.out.println("sdcsdcsdc");
 		if (arg0.getKeyCode() == KeyEvent.VK_UP && !(nick.getDirection() == 270)){
 			nick.setDirection(90);
+			System.out.println("sdcsdc");
 			lc.repaint();
 		}else if (arg0.getKeyCode() == KeyEvent.VK_DOWN && !(nick.getDirection() == 90)){
 			nick.setDirection(270);
