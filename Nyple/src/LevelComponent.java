@@ -8,13 +8,14 @@ import javax.swing.JComponent;
 public class LevelComponent extends JComponent {
 	private GameKeyListener gkl;
 	private Cage nick;
-
+	private int points = 0;
+	
 	private Level curLevel;
 
 	public LevelComponent(Level curLevel) {
 		this.curLevel = curLevel;
 		this.nick = this.curLevel.getCage();
-		
+
 		this.gkl = new GameKeyListener(this.nick, this);
 		this.addKeyListener(gkl);
 		this.setFocusable(true);
@@ -37,7 +38,7 @@ public class LevelComponent extends JComponent {
 	}
 
 	public void startComponent() {
-		
+
 		Runnable animatorRunnable = new Runnable() {
 
 			@Override
@@ -52,11 +53,13 @@ public class LevelComponent extends JComponent {
 						.getSprites();
 
 				curSprites.add(new DeclarationOfIndependence((int) (Math
-						.random() * 600.0), (int) (Math.random() * 600.0)));
+						.random() * 540.0), (int) (Math.random() * 540.0)));
 				System.out.println(curSprites.get(1).getX() + " "
 						+ curSprites.get(1).getY());
 
-				while (true) {
+				boolean gameState = true;
+
+				while (gameState) {
 					try {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
@@ -64,7 +67,15 @@ public class LevelComponent extends JComponent {
 					}
 
 					for (Sprite s : curSprites) {
-						if (s.getClass().toString().equals("class Cage")) {
+						if (s.getClass().toString().equals("class Guard")) {
+							// Guard logic
+							((Guard) s).increment();
+							if (((Guard) s).getAliveTime() >= ((Guard) s)
+									.getTimer()) {
+								s.setIsAlive(false);
+							}
+						} else if (s.getClass().toString().equals("class Cage")) {
+							// Nic Cage logic
 							if (s.getX() < 535 && s.getX() > 0
 									&& s.getY() < 515 && s.getY() > 0) {
 								if (s.getDirection() == 0) {
@@ -85,45 +96,39 @@ public class LevelComponent extends JComponent {
 								if (spawnTimer == 5) {
 									spawnFlag = true;
 									if (s.getDirection() == 0) {
-										spawnX = s.getX() - 50;
+										spawnX = s.getX();
 										spawnY = s.getY();
 									} else if (s.getDirection() == 90) {
 										spawnX = s.getX();
-										spawnY = s.getY() + 50;
+										spawnY = s.getY();
 									} else if (s.getDirection() == 180) {
-										spawnX = s.getX() + 50;
+										spawnX = s.getX();
 										spawnY = s.getY();
 									} else if (s.getDirection() == 270) {
 										spawnX = s.getX();
-										spawnY = s.getY() - 50;
+										spawnY = s.getY();
 									}
 									spawnTimer = 0;
 								}
 							} else {
-								System.out.println("YOU LOSE!");
-							}
-						} else if (s.getClass().toString()
-								.equals("class Guard")) {
-
-							((Guard) s).increment();
-							if (((Guard) s).getAliveTime() >= ((Guard) s)
-									.getTimer()) {
-								s.setIsAlive(false);
+								gameState = false;
 							}
 						} else if (s.getClass().toString()
 								.equals("class DeclarationOfIndependence")) {
+							// Declaration of Independence Spawning
 							if (Math.abs(curSprites.get(0).getX() - s.getX()) < 60
 									&& Math.abs(curSprites.get(0).getY()
 											- s.getY()) < 60) {
-								s.setX((int) (Math.random() * 600.0));
-								s.setY((int) (Math.random() * 600.0));
+								s.setX((int) (Math.random() * 540.0));
+								s.setY((int) (Math.random() * 540.0));
 
-								System.out.println("SWAG");
+								LevelComponent.this.incrementPoints();
 								lifeLength += 25;
 							}
 						}
 					}
 
+					// Spawns Guards
 					if (spawnFlag) {
 						if (lifeLength > 0) {
 							curSprites.add(new Guard(spawnX, spawnY));
@@ -135,20 +140,38 @@ public class LevelComponent extends JComponent {
 						}
 					}
 
+					// Removes dead sprites
 					for (int j = 0; j < curSprites.size(); ++j) {
 						if (!curSprites.get(j).isAlive()) {
 							curSprites.remove(j);
 							j -= 1;
 						}
 					}
+					
+					//Cage collision with Guards logic
+					for(int a = 3; a < curSprites.size()-2; ++a) {
+						if(Math.abs(curSprites.get(a).getX() - curSprites.get(0).getX()) < 45 && Math.abs(curSprites.get(a).getY() - curSprites.get(0).getY()) < 45)
+							gameState = false;
+					}
 
 					repaint();
 				}
 			}
+			
+			//Add Lose screen
 
 		};
 
 		Thread thread = new Thread(animatorRunnable);
 		thread.start();
+	}
+	
+	public int getPoints() {
+		return this.points;
+	}
+	
+	public void incrementPoints() {
+		this.points += 100;
+		System.out.println("UPDATED");
 	}
 }

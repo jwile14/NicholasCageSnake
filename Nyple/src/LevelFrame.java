@@ -30,7 +30,7 @@ public class LevelFrame extends JFrame {
 	public LevelFrame() {
 		this.setSize(600, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Nicolas Cage - Snake");
+
 		this.mainPanel = new JPanel(new CardLayout());
 		
 		try {
@@ -44,7 +44,7 @@ public class LevelFrame extends JFrame {
 
 		try {
 			this.myPicture = ImageIO.read(new File("TileFloor.jpg"));
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException("Error loading title screen");
 		}
@@ -58,9 +58,7 @@ public class LevelFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("right");
-				if(!(nick.getDirection() == 180)){
+				if (!(nick.getDirection() == 180)) {
 					nick.setDirection(0);
 				}
 			}
@@ -74,8 +72,6 @@ public class LevelFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("left");
 				if (!(nick.getDirection() == 0)) {
 					nick.setDirection(180);
 				}
@@ -90,8 +86,6 @@ public class LevelFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("up");
 				if (!(nick.getDirection() == 270)) {
 					nick.setDirection(90);
 				}
@@ -106,8 +100,6 @@ public class LevelFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("down");
 				if (!(nick.getDirection() == 90)) {
 					nick.setDirection(270);
 				}
@@ -135,6 +127,8 @@ public class LevelFrame extends JFrame {
 
 		this.lc = new LevelComponent(this.level);
 
+		this.setTitle("Nicolas Cage - Snake - SCORE:  " + this.lc.getPoints());
+
 		this.mainPanel.add(this.lc, "levelComponent");
 		this.mainPanel.add(this.titlePanel, "titlePanel");
 		this.cl.show(this.mainPanel, "titlePanel");
@@ -148,5 +142,27 @@ public class LevelFrame extends JFrame {
 	public void startGame() {
 		this.cl.show(this.mainPanel, "levelComponent");
 		this.lc.startComponent();
+
+		Runnable scoreUpdater = new Runnable() {
+
+			@Override
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						throw new RuntimeException("Error while updating score");
+					}
+
+					LevelFrame.this.updateScore();
+				}
+
+			}
+
+		};
+	}
+
+	public void updateScore() {
+		this.setTitle("Nicolas Cage - Snake - SCORE:  " + this.lc.getPoints());
 	}
 }
