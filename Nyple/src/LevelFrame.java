@@ -9,9 +9,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -32,10 +34,12 @@ public class LevelFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.mainPanel = new JPanel(new CardLayout());
+		this.titleScreen = new JPanel();
 		
 		try {
-			this.myPicture = ImageIO.read(new File("TileFloor.jpg"));
-			
+			BufferedImage myPicture2 = ImageIO.read(new File("TITLE w name.jpg"));
+			JLabel picLabel = new JLabel(new ImageIcon(myPicture2));
+			this.titleScreen.add(picLabel);
 		} catch (Exception e) {
 			throw new RuntimeException("Error loading title screen");
 		}
@@ -118,7 +122,7 @@ public class LevelFrame extends JFrame {
 		// **************************************************************************************************
 
 		this.titlePanel = new JPanel();
-		this.titleScreen = new JPanel();
+		
 
 		this.titlePanel.add(this.startButton, BorderLayout.SOUTH);
 		this.titlePanel.add(this.titleScreen, BorderLayout.CENTER);
