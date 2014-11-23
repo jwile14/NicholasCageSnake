@@ -10,19 +10,26 @@ import javax.swing.JPanel;
 
 
 public class LevelFrame extends JFrame {
+	private Level level;
+	
 	public LevelFrame() {
 		this.setSize(1000,1000);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Nicolas Cage - Snake");
+		
 		JPanel mainPanel = new JPanel(new CardLayout());
 		
 		try {
-			BufferedImage myPicture = ImageIO.read(new File("NationalTreasure.jpg"));
+			BufferedImage myPicture = ImageIO.read(new File("TileFloor.jpg"));
 			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-			mainPanel.add(picLabel);
+			//mainPanel.add(picLabel);
 		} catch (Exception e) {
 			throw new RuntimeException("Error loading image");
 		}
 		
-		this.add(mainPanel);
+		LevelComponent levelComponent = new LevelComponent(this.level);
+		
+		this.add(levelComponent);
 		
 		this.setResizable(false);
 		this.setVisible(true);
