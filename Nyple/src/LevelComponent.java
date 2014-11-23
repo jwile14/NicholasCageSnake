@@ -43,6 +43,9 @@ public class LevelComponent extends JComponent {
 			public void run() {
 
 				int timer = 0;
+				int spawnTimer = 0;
+				boolean spawnFlag = false;
+				int spawnX = 0, spawnY = 0;
 
 				while (true) {
 					try {
@@ -70,12 +73,52 @@ public class LevelComponent extends JComponent {
 								timer++;
 								if (timer == 5) {
 									timer = 0;
+									spawnTimer++;
 									((Cage) s).animate();
 								}
-							}
-							else {
+								if (spawnTimer == 5) {
+									spawnFlag = true;
+									if (s.getDirection() == 0) {
+										spawnX = s.getX()-50;
+										spawnY = s.getY();
+									} else if (s.getDirection() == 90) {
+										spawnX = s.getX();
+										spawnY = s.getY()+50;
+									} else if (s.getDirection() == 180) {
+										spawnX = s.getX()+50;
+										spawnY = s.getY();
+									} else if (s.getDirection() == 270) {
+										spawnX = s.getX();
+										spawnY = s.getY()-50;
+									}
+									spawnTimer = 0;
+								}
+							} else {
 								System.out.println("YOU LOSE!");
 							}
+						} else if (s.getClass().toString()
+								.equals("class Guard")) {
+
+
+							((Guard) s).increment();
+							if (((Guard) s).getAliveTime() == ((Guard) s)
+									.getTimer()) {
+								s.setIsAlive(false);
+							}
+						}
+					}
+
+					if (spawnFlag) {
+						curSprites.add(new Guard(spawnX, spawnY));
+						curSprites.get(curSprites.size() - 1).setDirection(
+								curSprites.get(0).getDirection());
+						spawnFlag = false;
+					}
+
+					for (int j = 0; j < curSprites.size(); ++j) {
+						if (!curSprites.get(j).isAlive()) {
+							curSprites.remove(j);
+							j -= 1;
 						}
 					}
 

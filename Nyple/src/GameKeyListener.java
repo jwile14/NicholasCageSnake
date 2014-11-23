@@ -28,7 +28,6 @@ public class GameKeyListener implements KeyListener{
 			nick.setDirection(0);
 			lc.repaint();
 		}
-		System.out.println("Direction: "+this.nick.getDirection());
 	}
 
 	@Override

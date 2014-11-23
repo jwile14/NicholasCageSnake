@@ -4,17 +4,16 @@ import java.util.ArrayList;
 
 public class Level {
 	final private int CELL_WIDTH = 60;
-	
+
 	private Cage nick;
 	private ArrayList<Sprite> sprites;
-	
-	
+
 	private BufferedImage myPicture;
 
 	public Level(BufferedImage myPicture) {
-			this.myPicture = myPicture;
-			this.sprites = new ArrayList<Sprite>();
-			setup();
+		this.myPicture = myPicture;
+		this.sprites = new ArrayList<Sprite>();
+		setup();
 	}
 
 	public void drawLevel(Graphics2D g2d) {
@@ -25,24 +24,25 @@ public class Level {
 						null);
 			}
 		}
-		
-		for(Sprite s : this.sprites) {
-			g2d.drawImage(s.getImage(), s.getX(), s.getY()
-					, this.CELL_WIDTH, this.CELL_WIDTH,
-					null);
+
+		for (Sprite s : this.sprites) {
+			if (s.isAlive()) {
+				g2d.drawImage(s.getImage(), s.getX(), s.getY(),
+						this.CELL_WIDTH, this.CELL_WIDTH, null);
+			}
 		}
 	}
-	
+
 	public ArrayList<Sprite> getSprites() {
 		return this.sprites;
 	}
-	
+
 	private void setup() {
-		this.nick = new Cage(5,5);
+		this.nick = new Cage(5, 5);
 		this.sprites.add(nick);
 	}
-	
-	public Cage getCage(){
+
+	public Cage getCage() {
 		return this.nick;
 	}
 }
