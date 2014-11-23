@@ -32,6 +32,13 @@ public class LevelFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Nicolas Cage - Snake");
 		this.mainPanel = new JPanel(new CardLayout());
+		
+		try {
+			this.myPicture = ImageIO.read(new File("TileFloor.jpg"));
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Error loading title screen");
+		}
 
 		myPicture = null;
 
