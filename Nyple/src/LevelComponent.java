@@ -6,7 +6,6 @@ import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
 public class LevelComponent extends JComponent {
-	private GameKeyListener gkl;
 	private Cage nick;
 	private int points = 0;
 	
@@ -15,10 +14,6 @@ public class LevelComponent extends JComponent {
 	public LevelComponent(Level curLevel) {
 		this.curLevel = curLevel;
 		this.nick = this.curLevel.getCage();
-
-		this.gkl = new GameKeyListener(this.nick, this);
-		this.addKeyListener(gkl);
-		this.setFocusable(true);
 	}
 
 	@Override
