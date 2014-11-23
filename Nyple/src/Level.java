@@ -27,8 +27,14 @@ public class Level {
 
 		for (Sprite s : this.sprites) {
 			if (s.isAlive()) {
-				g2d.drawImage(s.getImage(), s.getX(), s.getY(),
-						this.CELL_WIDTH, this.CELL_WIDTH, null);
+				if (s.getClass().toString().equals("class Guard")
+						&& ((Guard) s).getSpawnStatus()) {
+					((Guard) s).incrementSpawnWait();
+				} else {
+					g2d.drawImage(s.getImage(), s.getX(), s.getY(),
+							this.CELL_WIDTH, this.CELL_WIDTH, null);
+
+				}
 			}
 		}
 	}
